@@ -8,3 +8,22 @@ We will be working on creating a program that allows a person to enter in their 
 HOW TO RUN:
 
 
+
+DEPENDENCIES:
+
+
+
+SYSTEM REQUIREMENTS:
+
+
+
+GROUP MEMBERS:
+
+Andrew Candelaresi, Austin Holler
+
+CONTRIBUTORS:
+
+
+
+OPEN ISSUES/BUGS:
+
