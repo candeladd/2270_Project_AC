@@ -1,10 +1,14 @@
 #ifndef SNP_FUN_H
 #define SNP_FUN_H
+
+#define GENE 10
+#define CHROM 23
+
 #include <vector>
 #include <iostream>
 
-const int gene = 10;
-const int chrom = 23;
+//const int gene = 10;
+//const int chrom = 23;
 
 struct rsid
 {
@@ -18,7 +22,7 @@ class SNP_Fun
         ~SNP_Fun();
     protected:
     private:
-        std::vector<rsid> foo [gene][chrom];
+        std::vector<rsid> foo [GENE][CHROM];
 
 };
 
