@@ -20,6 +20,8 @@ class SNP_Fun
     public:
         SNP_Fun();
         ~SNP_Fun();
+        void SNP_Fun::createMatrix(std::string filename);
+        void sort_Data(std::string, int, int, std::string);
     protected:
     private:
         std::vector<rsid> foo [GENE][CHROM];
