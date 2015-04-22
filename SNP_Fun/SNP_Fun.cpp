@@ -74,7 +74,7 @@ void SNP_Fun::add_RSID(int geno, int chromo, int id, std::string effect)
     }
     else
     {
-        cout << "failure" << '\n';
+        cout << "fatality" << '\n';
     }
 }
 
