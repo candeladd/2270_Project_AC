@@ -12,7 +12,7 @@ int main()
 
     string userinput;
 
-    SNP_Fun *Analyze= new SNP_Fun();
+    SNP_Fun *User= new SNP_Fun();
 
     while (userinput != "5")// main menu loop
     {
@@ -25,7 +25,7 @@ int main()
             string infile;
             cout	<<	"Enter your SNP file name"	<<	endl;
             getline(cin, infile);
-            Analyze->createMatrix(infile);
+            User->createMatrix(infile);
         }
 
     }
