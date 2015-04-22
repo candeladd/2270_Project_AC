@@ -1,12 +1,15 @@
 # depslib dependency file v1.0
-1429302836 source:/home/user/Dropbox/Data_Struts/Final_Project/2270_Project_AC/SNP_Fun/main.cpp
+1429662974 source:/home/user/Dropbox/Data_Struts/Final_Project/2270_Project_AC/SNP_Fun/main.cpp
 	<iostream>
 	"SNP_Fun.h"
+	<fstream>
 
-1429301162 source:/home/user/Dropbox/Data_Struts/Final_Project/2270_Project_AC/SNP_Fun/SNP_Fun.cpp
+1429663758 source:/home/user/Dropbox/Data_Struts/Final_Project/2270_Project_AC/SNP_Fun/SNP_Fun.cpp
+	<iostream>
+	<fstream>
 	"SNP_Fun.h"
 
-1429304625 /home/user/Dropbox/Data_Struts/Final_Project/2270_Project_AC/SNP_Fun/SNP_Fun.h
+1429663392 /home/user/Dropbox/Data_Struts/Final_Project/2270_Project_AC/SNP_Fun/SNP_Fun.h
 	<vector>
 	<iostream>
 

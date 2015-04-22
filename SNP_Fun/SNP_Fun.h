@@ -7,12 +7,12 @@
 #include <vector>
 #include <iostream>
 
-//const int gene = 10;
-//const int chrom = 23;
 
 struct rsid
 {
-    std::string info;
+    std::string info = "empty";
+    std::string genotype = "empty";
+    int chromosome = NULL;
 };
 
 class SNP_Fun
@@ -20,11 +20,14 @@ class SNP_Fun
     public:
         SNP_Fun();
         ~SNP_Fun();
-        void SNP_Fun::createMatrix(std::string filename);
+        void createMatrix(std::string filename);
         void sort_Data(std::string, int, int, std::string);
+        int hashGeno(std::string geno);
+        void add_RSID(int geno, int chromo, int id, std::string effect);
+        int hashRSID(std::string id, int hashSize);
     protected:
     private:
-        std::vector<rsid> foo [GENE][CHROM];
+        std::vector<rsid> GC_Table [GENE][CHROM];
 
 };
 
