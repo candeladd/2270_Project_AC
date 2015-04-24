@@ -94,22 +94,70 @@ void SNP_Fun::createMatrix(string filename)
         string rsId;
         string Chrom;
         string pos;
-        string genotype;
-        int Chromosome = 0;
-        int position = 0;
+        string genotype_in;
+        int Chromosome_in = 0;
+        int position_in = 0;
 
         getline(infile, rsId, ' ');
         getline(infile, Chrom, ' ');
         getline(infile, pos, ' ');
-        getline(infile, genotype);
-        Chromosome = stoi(Chrom);
+        getline(infile, genotype_in);
+        Chromosome_in = stoi(Chrom);
+        position_in = stoi(pos);
 
-        //sort_Data
+        rsid *temp = sort_Data(rsId, chromosome_in, position_in, genotype_in);
+
     }
 
 }
 
- void SNP_Fun::sort_Data(std::string, int, int, std::string)
+ rsid* SNP_Fun::sort_Data(std::string str, int chromosome1, int position1, std::string genotype1)
  {
+        rsid *rsID = new rsid;// creates a new instance of the struct
+        rsID->id = str; //sets the id variable
+        rsID->chromosome = chromosome1;//sets the chromosome variable for this instance
+        rsID->position = position1;// sets the position variable for this instance
+        rsID->genotype = genotype1;// sets the genotype variable for this instance
 
  }
+
+void SNP_Fun::place_in(rsid* temp)
+{
+    int geno_sum = hashGeno(std::string temp->genotype)
+    int
+    for (int i=0;i<CHROM;i++)
+    {
+        if (i == temp->chromosome)
+        {
+            if (GC_Table[geno_sum][i] == NULL)
+            {
+                GC_Table[geno_sum][i] = temp;
+                GC_Table[geno_sum][i]->next = NULL;
+            }
+            else
+            {
+                rsid* temp2 = GC_Table[geno_sum][i];
+                if (temp2->id.compare(temp->id)>0)// if A>B A(B) you will get value greater that zero. B is what you want to insert
+                {
+                    temp->next = temp2;
+                    GC_Table[geno_sum][i] = temp;
+                    return;
+                }
+                while (temp2->next != NULL)
+                {
+
+                    if (temp2->next->id.compare(temp->id)>0)// if A<B A(B) alue less than 0
+                    {
+                       break;
+                    }
+                    temp2=temp2->next;
+
+                }
+                temp->next=temp2->next;
+                temp2->next=temp;
+
+            }
+
+        }
+    }
+    }
