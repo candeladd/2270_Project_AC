@@ -7,8 +7,28 @@ int main()
 {
     SNP_Fun *Initial = new SNP_Fun();
 
-    Initial->add_RSID(Initial->hashGeno("AA"), 3, Initial->hashRSID("rs53576", 10), "test");
-    Initial->add_RSID(Initial->hashGeno("AA"), 3, Initial->hashRSID("rs53553", 10), "test");
+    RSID *temp = Initial->sort_Data("rs53576", 3, 2764535, "AA");
+    Initial->default_add_rsid(temp, "This gene does stuff");
+
+    temp = Initial->sort_Data("rs53553", 3, 2764535, "AA");
+    Initial->default_add_rsid(temp, "This gene does stuff");
+
+    temp = Initial->sort_Data("rs863", 3, 2764535, "AA");
+    Initial->default_add_rsid(temp, "This gene does stuff");
+
+    temp = Initial->sort_Data("rs773", 3, 2764535, "AA");
+    Initial->default_add_rsid(temp, "This gene does stuff");
+
+    temp = Initial->sort_Data("rs971", 3, 2764535, "AA");
+    Initial->default_add_rsid(temp, "This gene does stuff");
+
+    temp = Initial->sort_Data("rs63552", 3, 2764535, "AA");
+    Initial->default_add_rsid(temp, "This gene does stuff");
+
+
+    //Initial->add_RSID("AA", 3, "rs53576", "test");
+    //Initial->add_RSID("AA", 3, "rs53553", "test");
+    //Initial->add_RSID("AA", 3, "rs53535", "test");
 
     string userinput;
 
@@ -30,6 +50,5 @@ int main()
 
     }
 
-    cout << "Hello World!" << endl;
     return 0;
 }

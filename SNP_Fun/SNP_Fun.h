@@ -8,14 +8,14 @@
 #include <iostream>
 
 
-struct rsid
+struct RSID
 {
     std::string id = "empty";
     std::string info = "empty";
     std::string genotype = "empty";
     int chromosome = NULL;
     int position = NULL;
-    rsid *next=NULL;
+    RSID *next=NULL;
 };
 
 class SNP_Fun
@@ -24,15 +24,16 @@ class SNP_Fun
         SNP_Fun();
         ~SNP_Fun();
         void createMatrix(std::string filename);
-        rsid* sort_Data(std::string, int, int, std::string);
-        int hashGeno(std::string geno);
-        void add_RSID(int geno, int chromo, int id, std::string effect);
+        RSID* sort_Data(std::string RSID_str, int chromosome1, int position1, std::string genotype1);
+        int getGenoInt(std::string geno);
+        void default_add_rsid(RSID* rsid_obj, std::string effect);
+        void user_add_rsid(RSID* rsid_obj);
         int hashRSID(std::string id, int hashSize);
-        void place_in(rsid* temp);
-        rsid* findRSID(std::string name);
+        void place_in(RSID* temp);
+        RSID* findRSID(std::string name);
     protected:
     private:
-        std::vector<rsid*> GC_Table [GENE][CHROM]= {};
+        std::vector<RSID*> GC_Table [GENE][CHROM]= {};
 
 };
 
