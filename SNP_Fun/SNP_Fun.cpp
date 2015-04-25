@@ -358,7 +358,50 @@ void SNP_Fun::initial_data()
     temp = sort_Data("rs17782313", 18, 60183864, "TT");
     default_add_rsid(temp, "Normal");
 
+    temp = sort_Data("rs1061170", 1, 196690107, "TT");
+    default_add_rsid(temp, "Normal");
 
+    temp = sort_Data("rs1061170", 1, 196690107, "CT");
+    default_add_rsid(temp, "2.5x risk for age related Muscular Dystrophy; higher mortality among 90 - 99yr olds");
+
+    temp = sort_Data("rs1061170", 1, 196690107, "CT");
+    default_add_rsid(temp, "5.9x risk for age related Muscular Dystrophy; higher mortality among 90 - 99yr olds");
+
+    temp = sort_Data("rs1042522", 17, 7676154, "CC");
+    default_add_rsid(temp, "Typically prolongs life by 3 years; chemotherapy is more effective");
+
+    temp = sort_Data("rs1042522", 17, 7676154, "CG");
+    default_add_rsid(temp, "Typically slightly increased lifespan");
+
+    temp = sort_Data("rs1042522", 17, 7676154, "GG");
+    default_add_rsid(temp, "Typically slightly shorter lifespan");
+
+    temp = sort_Data("rs7574865", 2, 191099907, "TT");
+    default_add_rsid(temp, "2.6x risk of Rheumatoid Arthritis; 3.10x risk of Lupus; 2.28x risk of Sjögren's syndrome; increased risk of Type-1 Diabetes; and increased risk of Primary Biliary Cirrhosis.");
+
+    temp = sort_Data("rs7574865", 2, 191099907, "GT");
+    default_add_rsid(temp, "1.3x risk of Rheumatoid Arthritis; 1.55x risk of Lupus; 1.42x risk of Sjögren's syndrome; increased risk of Type-1 Diabetes; and increased risk of Primary Biliary Cirrhosis.");
+
+    temp = sort_Data("rs7574865", 2, 191099907, "TT");
+    default_add_rsid(temp, "Normal risk of Rheumatoid Arthritis, Lupus, Sjögren's syndrome, Type-1 Diabetes, and Primary Biliary Cirrhosis.");
+
+    temp = sort_Data("rs780094", 2, 27518370, "GG");
+    default_add_rsid(temp, "Normal");
+
+    temp = sort_Data("rs780094", 2, 27518370, "AG");
+    default_add_rsid(temp, "Metabolic consequences");
+
+    temp = sort_Data("rs780094", 2, 27518370, "AA");
+    default_add_rsid(temp, "Metabolic consequences");
+
+    temp = sort_Data("rs738409", 22, 43928847, "GG");
+    default_add_rsid(temp, "Most common genotype; slightly less damage from alcohol");
+
+    temp = sort_Data("rs738409", 22, 43928847, "CG");
+    default_add_rsid(temp, "Increased liver fat, increased odds of alcoholic liver disease");
+
+    temp = sort_Data("rs738409", 22, 43928847, "CC");
+    default_add_rsid(temp, "Higher odds of alcoholic liver disease, increased liver fat");
 
 }
 
