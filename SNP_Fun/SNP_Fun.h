@@ -29,8 +29,8 @@ class SNP_Fun
         void default_add_rsid(RSID* rsid_obj, std::string effect);
         void user_add_rsid(RSID* rsid_obj);
         int hashRSID(std::string id, int hashSize);
-        void place_in(RSID* temp);
-        RSID* findRSID(std::string name);
+        //void place_in(RSID* temp);
+        void retrieveRSID(std::string RSID_str, int chromo, std::string geno);
     protected:
     private:
         std::vector<RSID*> GC_Table [GENE][CHROM]= {};

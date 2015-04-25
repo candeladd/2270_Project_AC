@@ -215,6 +215,33 @@ void SNP_Fun::createMatrix(std::string filename)
 
  }
 
+ void SNP_Fun::retrieveRSID(std::string RSID_str, int chromo, std::string geno)
+ {
+     int genoInt = getGenoInt(geno); //Gets the integer value of the genotype string
+     int idInt = hashRSID(RSID_str, 10); //Gets the hashed value of the RSID string
+
+     if(GC_Table[genoInt][chromo][idInt]->id == RSID_str)
+     {
+         std::cout << "Success" << '\n';
+     }
+     else
+     {
+         RSID *temp = GC_Table[genoInt][chromo][idInt];
+
+         while(temp->next != NULL)
+         {
+             temp = temp->next;
+
+             if(temp->id == RSID_str)
+             {
+                 std::cout << "Success2" << '\n';
+             }
+         }
+     }
+
+     std::cout << "RSID does not exist within database" << '\n';
+ }
+
 /*void SNP_Fun::place_in(RSID* temp)
 {
     int geno_sum = hashGeno(temp->genotype);
