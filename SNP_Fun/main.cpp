@@ -7,23 +7,7 @@ int main()
 {
     SNP_Fun *Initial = new SNP_Fun();
 
-    RSID *temp = Initial->sort_Data("rs53576", 3, 2764535, "AA");
-    Initial->default_add_rsid(temp, "This gene does stuff");
-
-    temp = Initial->sort_Data("rs53553", 3, 2764535, "AA");
-    Initial->default_add_rsid(temp, "This gene does stuff");
-
-    temp = Initial->sort_Data("rs863", 3, 2764535, "AA");
-    Initial->default_add_rsid(temp, "This gene does stuff");
-
-    temp = Initial->sort_Data("rs773", 3, 2764535, "AA");
-    Initial->default_add_rsid(temp, "This gene does stuff");
-
-    temp = Initial->sort_Data("rs971", 3, 2764535, "AA");
-    Initial->default_add_rsid(temp, "This gene does stuff");
-
-    temp = Initial->sort_Data("rs63552", 3, 2764535, "AA");
-    Initial->default_add_rsid(temp, "This gene does stuff");
+    Initial->initial_data();
 
     string userinput;
 
@@ -51,14 +35,15 @@ int main()
             string chromo;
             string geno;
 
-            cout << "Enter your SNP:" << '\n';
+            cout << "Enter your SNP: ";
             getline(cin, RSID_str);
 
-            cout << "Enter your chromosome:" << '\n';
+            cout << "Enter your chromosome: ";
             getline(cin, chromo);
 
-            cout << "Enter your genotype:" << '\n';
+            cout << "Enter your genotype: ";
             getline(cin, geno);
+            cout << '\n';
 
             Initial->retrieveRSID(RSID_str, stoi(chromo), geno);
         }

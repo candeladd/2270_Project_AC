@@ -28,6 +28,7 @@ class SNP_Fun
         int getGenoInt(std::string geno);
         void default_add_rsid(RSID* rsid_obj, std::string effect);
         void user_add_rsid(RSID* rsid_obj);
+        void initial_data();
         int hashRSID(std::string id, int hashSize);
         //void place_in(RSID* temp);
         void retrieveRSID(std::string RSID_str, int chromo, std::string geno);
