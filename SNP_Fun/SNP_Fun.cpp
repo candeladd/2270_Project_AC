@@ -461,8 +461,6 @@ void SNP_Fun::createMatrix(std::string filename)
 
     std::string token;
     std::ifstream infile;
-    std::string rsId;
-    std::string Chrom;
     std::string pos;
     std::string genotype_in;
     std::string line;
@@ -482,10 +480,13 @@ void SNP_Fun::createMatrix(std::string filename)
         {
             ss << line;
 
+            std::string rsId;
+            std::string Chrom;
+
             getline(ss, rsId, '\t');
             getline(ss, Chrom, '\t');
 
-            if(Chrom != "X" || Chrom != "Y" || Chrom != "MT")
+            if(Chrom != "X" && Chrom != "Y" && Chrom != "MT")
             {
                 std::cout << Chrom << '\n';
 
