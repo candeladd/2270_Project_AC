@@ -5,13 +5,13 @@ using namespace std;
 
 int main()
 {
-    SNP_Fun *Initial = new SNP_Fun();
+    SNP_Fun *Initial = new SNP_Fun(); //Create an instance for a "default" database
 
-    Initial->initial_data();
+    Initial->initial_data(); //Creates the "default" database
 
-    string userinput;
+    string userinput; //For user input
 
-    SNP_Fun *User= new SNP_Fun();
+    SNP_Fun *User= new SNP_Fun(); //Create an instance for a "user" database
 
     while (userinput != "6")// main menu loop
     {
@@ -49,7 +49,14 @@ int main()
             getline(cin, geno);
             cout << '\n';
 
-            Initial->retrieveRSID(RSID_str, stoi(chromo), geno);
+            if(RSID_str == "" || chromo == "" || geno == "")
+            {
+                cout << "Please enter a valid SNP, chromosome, and genotype combination" << '\n';
+            }
+            else
+            {
+                Initial->retrieveRSID(RSID_str, stoi(chromo), geno);
+            }
         }
         else if (userinput == "3")
         {
