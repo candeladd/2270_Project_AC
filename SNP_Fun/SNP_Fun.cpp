@@ -52,6 +52,12 @@ int SNP_Fun::getGenoInt(std::string geno)
         return 8;
     case 168:
         return 9;
+    case 90: // add to handle genotupe "--"
+        return 10;
+    case 146: //added to handle genotype "II"
+        return 11;
+    case 141: //added to handle genotype "DI"
+        return 12;
     default:
         std::cout << "Invalid Genotype" << '\n';
     }
@@ -65,7 +71,7 @@ void SNP_Fun::default_add_rsid(RSID* rsid_obj, std::string effect)
     int idInt = hashRSID(rsid_obj->id, 10); //Gets the hashed value of the RSID string
     rsid_obj->info = effect; //Sets the effect of the rsid
 
-    if(GC_Table[genoInt][rsid_obj->chromosome].empty()) //If a vector doesn't in the gene/chrom position create one and add RSID
+    if(GC_Table[genoInt][rsid_obj->chromosome].empty()) //If a vector doesn't  exist in the gene/chrom position create one and add RSID
     {
         std::vector<RSID*> rsid_Table (10);
         GC_Table[genoInt][rsid_obj->chromosome] = rsid_Table;
@@ -117,10 +123,14 @@ void SNP_Fun::default_add_rsid(RSID* rsid_obj, std::string effect)
 
 void SNP_Fun::user_add_rsid(RSID* rsid_obj)
 {
-    int genoInt = getGenoInt(rsid_obj->genotype); //Gets the integer value of the genotype string
+    int   genoInt = getGenoInt(rsid_obj->genotype); //Gets the integer value of the genotype string
+    if (genoInt==10||genoInt==11 ||genoInt==12)// ignores rsid with genotype "--" "II" and "DI"
+    {
+        return;
+    }
     int idInt = hashRSID(rsid_obj->id, 10); //Gets the hashed value of the RSID string
 
-    if(GC_Table[genoInt][rsid_obj->chromosome].empty()) //If a vector doesn't in the gene/chrom position create one and add RSID
+    if(GC_Table[genoInt][rsid_obj->chromosome].empty()) //If a vector doesn't exist in the gene/chrom position create one and add RSID
     {
         std::vector<RSID*> rsid_Table (10);
         GC_Table[genoInt][rsid_obj->chromosome] = rsid_Table;
@@ -411,10 +421,8 @@ void SNP_Fun::createMatrix(std::string filename)
     std::ifstream infile;
     infile.open(filename.c_str());
 
-
     int counter = 0;
     int column = 0;
-
         while (!infile.eof())
     {
 
@@ -425,15 +433,16 @@ void SNP_Fun::createMatrix(std::string filename)
         int Chromosome_in = 0;
         int position_in = 0;
 
-        getline(infile, rsId, ' ');
-        getline(infile, Chrom, ' ');
-        getline(infile, pos, ' ');
+        getline(infile, rsId,  '\t');
+        getline(infile, Chrom, '\t');
+        getline(infile, pos, '\t');
         getline(infile, genotype_in);
-        Chromosome_in = stoi(Chrom);
-        position_in = stoi(pos);
+
+        Chromosome_in = std::stoi(Chrom);
+        position_in = std::stoi(pos);
 
         RSID *temp = sort_Data(rsId, Chromosome_in, position_in, genotype_in);
-
+        user_add_rsid(temp);
     }
 
 }
@@ -483,7 +492,7 @@ void SNP_Fun::createMatrix(std::string filename)
                 {
                     std::cout << "RSID: " << temp->id << '\n';
                     std::cout << "Chromosome: " << temp->chromosome << '\n';
-                    std::cout << "Position: " << temp->position << '\n';
+                    std::cout << "Postition: " << temp->position << '\n';
                     std::cout << "Genotype: " << temp->genotype << '\n';
                     std::cout << "Effect: " << temp->info << '\n' << '\n';
                     return;
@@ -496,42 +505,69 @@ void SNP_Fun::createMatrix(std::string filename)
 
  }
 
-/*void SNP_Fun::place_in(RSID* temp)
+//finds all rsid associated with a particular genotype in a users DNA
+void SNP_Fun::printMatchingGeno(std::string geno)
 {
-    int geno_sum = hashGeno(temp->genotype);
-    for (int i=0;i<CHROM;i++)
+    int genoInt = getGenoInt(geno); //hash the genotype sent into the function
+    for(int i=0; i < CHROM;i++) // loop through all rows for the particular genotype column you are wanting to print out
     {
-        if (i == temp->chromosome)
+        if(!GC_Table[genoInt][i].empty()) // check to see that a vector exists at each of these in each row for this column
         {
-            if (GC_Table[geno_sum][i] == NULL)
+            for (int j=0; j<10;j++)// loop through each index in the vector at this row comlumn position
             {
-                GC_Table[geno_sum][i] = temp;
-                GC_Table[geno_sum][i]->next = NULL;
-            }
-            else
-            {
-                RSID* temp2 = GC_Table[geno_sum][i];
-                if (temp2->id.compare(temp->id)>0)// if A>B A(B) you will get value greater that zero. B is what you want to insert
-                {
-                    temp->next = temp2;
-                    GC_Table[geno_sum][i] = temp;
-                    return;
-                }
-                while (temp2->next != NULL)
-                {
 
-                    if (temp2->next->id.compare(temp->id)>0)// if A<B A(B) alue less than 0
+                if (GC_Table[genoInt][i][j]!= NULL)  //if there is a value inside of the rsid_Table (vector) at each index print out that value and loop through
+                {
+                    while (GC_Table[genoInt][i][j] != NULL) // the linked list until there are no more values.
                     {
-                       break;
+
+                        std::cout << "RSID: " << GC_Table[genoInt][i][j]->id << " "
+                         << "Chromosome: " << GC_Table[genoInt][i][j]->chromosome <<" "<<  "Genotype: " << GC_Table[genoInt][i][j]->genotype << '\n';
+
+                        GC_Table[genoInt][i][j]=GC_Table[genoInt][i][j]->next;
+
                     }
-                    temp2=temp2->next;
 
                 }
-                temp->next=temp2->next;
-                temp2->next=temp;
-
             }
-
+        }
+        else
+        {
+            std::cout << "no RSID with " <<geno<< " at Chromosome "<< i << '\n';
         }
     }
-}*/
+}
+
+void SNP_Fun::printAllForChromosome(int chromo)
+{
+
+    for(int i=0; i < GENE;i++) // go down an entire column for one chromosome
+    {
+        if(!GC_Table[i][chromo].empty()) // check to see that a vector exists at each index of row for this column
+        {
+            for (int j=0; j<10;j++)// loop through each index in the vector at this row comlumn position
+            {
+
+                if (GC_Table[i][chromo][j]!= NULL)  //if there is a value inside of the rsid_Table (vector) at each index print out that value and loop through
+                {
+                    while (GC_Table[i][chromo][j] != NULL) // the linked list until there are no more values.
+                    {
+
+                        std::cout << "RSID: " << GC_Table[i][chromo][j]->id << " "
+                         << "Chromosome: " << GC_Table[i][chromo][j]->chromosome <<" "<<  "Genotype: " << GC_Table[i][chromo][j]->genotype << '\n';
+
+                        GC_Table[i][chromo][j]=GC_Table[i][chromo][j]->next;
+
+                    }
+
+                }
+            }
+        }
+        else
+        {
+            std::cout << "no RSID at chromosome " <<chromo<< " with genotype "<< i << '\n';
+        }
+    }
+
+}
+

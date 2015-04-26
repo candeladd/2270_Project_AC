@@ -30,8 +30,9 @@ class SNP_Fun
         void user_add_rsid(RSID* rsid_obj);
         void initial_data();
         int hashRSID(std::string id, int hashSize);
-        //void place_in(RSID* temp);
+        void printMatchingGeno(std::string geno);
         void retrieveRSID(std::string RSID_str, int chromo, std::string geno);
+        void printAllForChromosome(int chromo);
     protected:
     private:
         std::vector<RSID*> GC_Table [GENE][CHROM]= {};
