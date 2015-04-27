@@ -21,6 +21,7 @@ int main()
         cout	<<  "3. print rsid with matching genotype"	<<	endl;
         cout    <<  "4. find an rsid in User" << endl;
         cout    <<  "5. print all rsids for a chromosome" << endl;
+        cout    <<  "6. Quit" << endl;
 
 
         getline(cin, userinput);
@@ -97,6 +98,6 @@ int main()
         }
 
     }
-
+    cout << "Goodbye!"<<endl;
     return 0;
 }

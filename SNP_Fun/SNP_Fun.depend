@@ -14,16 +14,17 @@
 	<vector>
 	<iostream>
 
-1430030869 source:/home/user/Dropbox/2270/Project/2270_Project_AC/SNP_Fun/SNP_Fun.cpp
+1430113665 source:/home/user/Dropbox/2270/Project/2270_Project_AC/SNP_Fun/SNP_Fun.cpp
 	<iostream>
 	<fstream>
+	<sstream>
 	"SNP_Fun.h"
 
-1430030183 /home/user/Dropbox/2270/Project/2270_Project_AC/SNP_Fun/SNP_Fun.h
+1430113524 /home/user/Dropbox/2270/Project/2270_Project_AC/SNP_Fun/SNP_Fun.h
 	<vector>
 	<iostream>
 
-1430030396 source:/home/user/Dropbox/2270/Project/2270_Project_AC/SNP_Fun/main.cpp
+1430096929 source:/home/user/Dropbox/2270/Project/2270_Project_AC/SNP_Fun/main.cpp
 	<iostream>
 	"SNP_Fun.h"
 	<fstream>
