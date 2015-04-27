@@ -7,7 +7,13 @@ We will be working on creating a program that allows a person to enter in their 
 
 HOW TO RUN:
 
+1) Clone the project file
 
+2) Open project file in Code::Blocks IDE (SNP_Fun.cbp)
+
+3) Recompile (The Gear)
+
+4) Run (The Green Arrow)
 
 DEPENDENCIES:
 
@@ -30,3 +36,5 @@ OPEN ISSUES/BUGS:
 -If user inputs unexpected input (e.g. string when it expects an int or vise-versa) the program doesn't like it.
 
 -Instead of cout-ing RSIDs when using option #4 or #5 (i.e. printAllForChromosome or printMatchingGeno) it would be better to write out the info to a file.
+
+-Also writing out to a file the info given to users, while keeping the cout-ing aspect, option #3 (i.e. retrieveData) would be nice.
