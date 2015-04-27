@@ -88,6 +88,11 @@ int main()
         }
 
     }
+
+    Initial->~SNP_Fun();
+    User->~SNP_Fun();
+
     cout << "Goodbye!"<<endl;
+
     return 0;
 }

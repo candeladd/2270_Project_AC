@@ -10,8 +10,8 @@ SNP_Fun::SNP_Fun()
 
 SNP_Fun::~SNP_Fun()
 {
-    //dtor
 }
+
 /*hashRSID - A hash function for returning the
 * hash key of an entered SNP rsid*/
 int SNP_Fun::hashRSID(std::string id, int hashSize)
@@ -454,10 +454,10 @@ void SNP_Fun::initial_data()
     temp = sort_Data("rs11209026", 1, 67240275, "AA");
     default_add_rsid(temp, "0.26x lower risk for certain autoimmune diseases");
 }
+
 /*createMatrix reads in from a file provided by the user.  Parses file based on tab spacing.  Finds matching genotypes.
 Puts all RSID objects into a 3d matrix.
 */
-
 void SNP_Fun::createMatrix(std::string filename)
 {
     std::cout << "Processing File" << '\n';
@@ -508,9 +508,12 @@ void SNP_Fun::createMatrix(std::string filename)
 
     }
 
+    infile.close();
+
 }
 
-
+/*compareData reads in from a file provided by the user.  Parses file based on tab spacing.  Finds matching genotypes.
+Then sends parsed data to retrieveData for comparison against the default database.*/
 void SNP_Fun::compareData(std::string filename)
 {
     std::cout << "Processing File" << '\n';
@@ -545,7 +548,6 @@ void SNP_Fun::compareData(std::string filename)
 
             if(Chrom != "X" && Chrom != "Y" && Chrom != "MT") // checks to make sure the Chromosome is not X, Y, or mitochondria
             {
-                //std::cout << Chrom << '\n';
 
                 getline(ss, pos, '\t');//store the position of the rsid
                 getline(ss, genotype_in);// stores the genotype
@@ -557,16 +559,17 @@ void SNP_Fun::compareData(std::string filename)
 
                 int genoInt = getGenoInt(genotype_in); //find the genotype int for the current RSID being added to the matrix
 
-                if (genoInt != 11 && genoInt != 12 && genoInt != 10)
+                if (genoInt != 11 && genoInt != 12 && genoInt != 10) // makes sure that genotype is not II,DI,or --
                 {
-                    //std::cout << rsId << ":" << Chrom << ":" << genotype_in << '\n';
-                    retrieveData(rsId, Chromosome_in, genoInt);
+                    retrieveData(rsId, Chromosome_in, genoInt); // sends parsed data to retrieveData
                 }
 
             }
         }
 
     }
+
+    infile.close();
 
 }
 
@@ -647,8 +650,8 @@ void SNP_Fun::compareData(std::string filename)
 
  }
 
-/*retrieveRSID - Given user inputted information, this function checks the default database
-* by genotype, chromosome, and rsid hash table position for an rsid obj and info to return to the user.*/
+/*retrieveRSID - Given user inputted file from compareData function, this function checks the default database
+* by genotype, chromosome, and rsid hash table position for alll file input and returns info to the user.*/
  void SNP_Fun::retrieveData(std::string RSID_str, int chromo, int genoInt)
  {
      int idInt = hashRSID(RSID_str, 10); //Gets the hashed value of the RSID string
@@ -738,6 +741,7 @@ void SNP_Fun::printMatchingGeno(std::string geno)
     }
 }
 
+/* printAllForChromosome- finds all SNPs associated with a particular chromosome given by the user.  Then prints them all out*/
 void SNP_Fun::printAllForChromosome(int chromo)
 {
 
@@ -756,9 +760,9 @@ void SNP_Fun::printAllForChromosome(int chromo)
                     {
 
                         std::cout << "RSID: " << temp->id << " "
-                         << "Chromosome: " << temp->chromosome <<" "<<  "Genotype: " << temp->genotype << '\n';
+                         << "Chromosome: " << temp->chromosome <<" "<<  "Genotype: " << temp->genotype << '\n';//print all found information
 
-                        temp = temp->next;
+                        temp = temp->next; //advance temp
 
                     }
 
@@ -767,11 +771,8 @@ void SNP_Fun::printAllForChromosome(int chromo)
         }
         else
         {
-            std::cout << "no RSID at chromosome " <<chromo<< " with genotype "<< i << '\n';
+            std::cout << "no RSID at chromosome " <<chromo<< " with genotype "<< i << '\n'; // if there is no rsid at the chromosome
         }
     }
 
 }
-
-
-
