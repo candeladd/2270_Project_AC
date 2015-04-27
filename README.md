@@ -11,11 +11,11 @@ HOW TO RUN:
 
 DEPENDENCIES:
 
-
+The program depends on being compiled using C++11 or higher a standard with no 3rd party or special libraries.
 
 SYSTEM REQUIREMENTS:
 
-
+The program is meant to be ran in Linux with Code::Blocks IDE with no additional requirements.
 
 GROUP MEMBERS:
 
@@ -23,7 +23,10 @@ Andrew Candelaresi, Austin Holler
 
 CONTRIBUTORS:
 
-
+Andrew Candelaresi, Austin Holler
 
 OPEN ISSUES/BUGS:
 
+-If user inputs unexpected input (e.g. string when it expects an int or vise-versa) the program doesn't like it.
+
+-Instead of cout-ing RSIDs when using option #4 or #5 (i.e. printAllForChromosome or printMatchingGeno) it would be better to write out the info to a file.
