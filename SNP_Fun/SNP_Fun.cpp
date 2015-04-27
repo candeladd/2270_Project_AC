@@ -76,32 +76,32 @@ void SNP_Fun::default_add_rsid(RSID* rsid_obj, std::string effect)
     int idInt = hashRSID(rsid_obj->id, 10); //Gets the hashed value of the RSID string
     rsid_obj->info = effect; //Sets the effect of the rsid
 
-    if(GC_Table[genoInt][rsid_obj->chromosome].empty()) //If a vector doesn't  exist in the gene/chrom position create one and add RSID
+    if(GC_Table[genoInt][rsid_obj->chromosome - 1].empty()) //If a vector doesn't  exist in the gene/chrom position create one and add RSID
     {
         std::vector<RSID*> rsid_Table (10);
-        GC_Table[genoInt][rsid_obj->chromosome] = rsid_Table; //Add new vector
+        GC_Table[genoInt][rsid_obj->chromosome - 1] = rsid_Table; //Add new vector
 
-        GC_Table[genoInt][rsid_obj->chromosome][idInt] = rsid_obj; //Assign the rsid object to hash table
+        GC_Table[genoInt][rsid_obj->chromosome - 1][idInt] = rsid_obj; //Assign the rsid object to hash table
     }
     else
     {
-        //std::cout << genoInt << ":" << rsid_obj->chromosome << ":" << idInt << '\n';
+        //std::cout << genoInt << ":" << rsid_obj->chromosome - 1 << ":" << idInt << '\n';
 
-        if(GC_Table[genoInt][rsid_obj->chromosome][idInt] == NULL) //If there is no collision add the rsid object
+        if(GC_Table[genoInt][rsid_obj->chromosome - 1][idInt] == NULL) //If there is no collision add the rsid object
         {
-            GC_Table[genoInt][rsid_obj->chromosome][idInt] = rsid_obj;
+            GC_Table[genoInt][rsid_obj->chromosome - 1][idInt] = rsid_obj;
         }
         else //Else there is a collision in hash table
         {
 
-            RSID *temp = GC_Table[genoInt][rsid_obj->chromosome][idInt]; //Temp for iterating
+            RSID *temp = GC_Table[genoInt][rsid_obj->chromosome - 1][idInt]; //Temp for iterating
 
             //If temps rsid substr ints is greater than the one to be added, move temp
             if(stoi(temp->id.substr(2, temp->id.length())) > stoi(rsid_obj->id.substr(2, rsid_obj->id.length())))
             {
                 rsid_obj->next = temp; //Temps rsid obj gets assigned as the addition's next
 
-                GC_Table[genoInt][rsid_obj->chromosome][idInt] = rsid_obj; //The one to be added takes temp's place
+                GC_Table[genoInt][rsid_obj->chromosome - 1][idInt] = rsid_obj; //The one to be added takes temp's place
             }
             else //Else the one to be added is less than temp
             {
@@ -142,32 +142,32 @@ void SNP_Fun::user_add_rsid(RSID* rsid_obj)
 
     int idInt = hashRSID(rsid_obj->id, 10); //Gets the hashed value of the RSID string
 
-    if(GC_Table[genoInt][rsid_obj->chromosome].empty()) //If a vector doesn't exist in the gene/chrom position create one and add RSID
+    if(GC_Table[genoInt][rsid_obj->chromosome - 1].empty()) //If a vector doesn't exist in the gene/chrom position create one and add RSID
     {
         std::vector<RSID*> rsid_Table (10);
-        GC_Table[genoInt][rsid_obj->chromosome] = rsid_Table; //Add new vector
+        GC_Table[genoInt][rsid_obj->chromosome - 1] = rsid_Table; //Add new vector
 
-        GC_Table[genoInt][rsid_obj->chromosome][idInt] = rsid_obj; //Add rsid obj to hash table
+        GC_Table[genoInt][rsid_obj->chromosome - 1][idInt] = rsid_obj; //Add rsid obj to hash table
     }
     else
     {
-        //std::cout << genoInt << ":" << rsid_obj->chromosome << ":" << idInt << '\n';
+        //std::cout << genoInt << ":" << rsid_obj->chromosome - 1 << ":" << idInt << '\n';
 
-        if(GC_Table[genoInt][rsid_obj->chromosome][idInt] == NULL) //If there is no collision add the rsid object
+        if(GC_Table[genoInt][rsid_obj->chromosome - 1][idInt] == NULL) //If there is no collision add the rsid object
         {
-            GC_Table[genoInt][rsid_obj->chromosome][idInt] = rsid_obj;
+            GC_Table[genoInt][rsid_obj->chromosome - 1][idInt] = rsid_obj;
         }
         else //Else there is a collision in hash table
         {
 
-            RSID *temp = GC_Table[genoInt][rsid_obj->chromosome][idInt]; //Temp for iterating
+            RSID *temp = GC_Table[genoInt][rsid_obj->chromosome - 1][idInt]; //Temp for iterating
 
             //If temps rsid substr ints is greater than the one to be added, move temp
             if(stoi(temp->id.substr(2, temp->id.length())) > stoi(rsid_obj->id.substr(2, rsid_obj->id.length())))
             {
                 rsid_obj->next = temp; //Temps rsid obj gets assigned as the addition's next
 
-                GC_Table[genoInt][rsid_obj->chromosome][idInt] = rsid_obj; //The addition takes temp's place
+                GC_Table[genoInt][rsid_obj->chromosome - 1][idInt] = rsid_obj; //The addition takes temp's place
             }
             else //Else the one to be added is less than temp
             {
@@ -593,7 +593,7 @@ void SNP_Fun::compareData(std::string filename)
      int idInt = hashRSID(RSID_str, 10); //Gets the hashed value of the RSID string
 
      //If there is nothing at the genotype/chromosome pos, RSID isn't stored
-     if(GC_Table[genoInt][chromo].empty())
+     if(GC_Table[genoInt][chromo - 1].empty())
      {
          std::cout << "RSID does not exist within database" << '\n';
          return;
@@ -603,25 +603,25 @@ void SNP_Fun::compareData(std::string filename)
      else
      {
         //If there is nothing at the hash table key, RSID isn't stored
-        if(GC_Table[genoInt][chromo][idInt] == NULL)
+        if(GC_Table[genoInt][chromo - 1][idInt] == NULL)
         {
             std::cout << "RSID does not exist within database" << '\n';
             return;
         }
         //Else if the hash table rsid obj is a match, return info
-        else if(GC_Table[genoInt][chromo][idInt]->id == RSID_str)
+        else if(GC_Table[genoInt][chromo - 1][idInt]->id == RSID_str)
         {
-            std::cout << "RSID: " << GC_Table[genoInt][chromo][idInt]->id << '\n';
-            std::cout << "Chromosome: " << GC_Table[genoInt][chromo][idInt]->chromosome << '\n';
-            std::cout << "Position: " << GC_Table[genoInt][chromo][idInt]->position << '\n';
-            std::cout << "Genotype: " << GC_Table[genoInt][chromo][idInt]->genotype << '\n';
-            std::cout << "Effect: " << GC_Table[genoInt][chromo][idInt]->info << '\n' << '\n';
+            std::cout << "RSID: " << GC_Table[genoInt][chromo - 1][idInt]->id << '\n';
+            std::cout << "Chromosome: " << GC_Table[genoInt][chromo - 1][idInt]->chromosome << '\n';
+            std::cout << "Position: " << GC_Table[genoInt][chromo - 1][idInt]->position << '\n';
+            std::cout << "Genotype: " << GC_Table[genoInt][chromo - 1][idInt]->genotype << '\n';
+            std::cout << "Effect: " << GC_Table[genoInt][chromo - 1][idInt]->info << '\n' << '\n';
             return;
         }
         //Else if the hash table rsid isn't a match, check the linked list
         else
         {
-            RSID *temp = GC_Table[genoInt][chromo][idInt]; //Temp for iterating
+            RSID *temp = GC_Table[genoInt][chromo - 1][idInt]; //Temp for iterating
 
             //While there are still nodes to check, iterate
             while(temp->next != NULL)
@@ -654,7 +654,7 @@ void SNP_Fun::compareData(std::string filename)
      int idInt = hashRSID(RSID_str, 10); //Gets the hashed value of the RSID string
 
      //If there is nothing at the genotype/chromosome pos, RSID isn't stored
-     if(GC_Table[genoInt][chromo].empty())
+     if(GC_Table[genoInt][chromo - 1].empty())
      {
          return;
      }
@@ -663,24 +663,24 @@ void SNP_Fun::compareData(std::string filename)
      else
      {
         //If there is nothing at the hash table key, RSID isn't stored
-        if(GC_Table[genoInt][chromo][idInt] == NULL)
+        if(GC_Table[genoInt][chromo - 1][idInt] == NULL)
         {
             return;
         }
         //Else if the hash table rsid obj is a match, return info
-        else if(GC_Table[genoInt][chromo][idInt]->id == RSID_str)
+        else if(GC_Table[genoInt][chromo - 1][idInt]->id == RSID_str)
         {
-            std::cout << "RSID: " << GC_Table[genoInt][chromo][idInt]->id << '\n';
-            std::cout << "Chromosome: " << GC_Table[genoInt][chromo][idInt]->chromosome << '\n';
-            std::cout << "Position: " << GC_Table[genoInt][chromo][idInt]->position << '\n';
-            std::cout << "Genotype: " << GC_Table[genoInt][chromo][idInt]->genotype << '\n';
-            std::cout << "Effect: " << GC_Table[genoInt][chromo][idInt]->info << '\n' << '\n';
+            std::cout << "RSID: " << GC_Table[genoInt][chromo - 1][idInt]->id << '\n';
+            std::cout << "Chromosome: " << GC_Table[genoInt][chromo - 1][idInt]->chromosome << '\n';
+            std::cout << "Position: " << GC_Table[genoInt][chromo - 1][idInt]->position << '\n';
+            std::cout << "Genotype: " << GC_Table[genoInt][chromo - 1][idInt]->genotype << '\n';
+            std::cout << "Effect: " << GC_Table[genoInt][chromo - 1][idInt]->info << '\n' << '\n';
             return;
         }
         //Else if the hash table rsid isn't a match, check the linked list
         else
         {
-            RSID *temp = GC_Table[genoInt][chromo][idInt]; //Temp for iterating
+            RSID *temp = GC_Table[genoInt][chromo - 1][idInt]; //Temp for iterating
 
             //While there are still nodes to check, iterate
             while(temp->next != NULL)
@@ -743,14 +743,14 @@ void SNP_Fun::printAllForChromosome(int chromo)
 
     for(int i=0; i < GENE;i++) // go down an entire column for one chromosome
     {
-        if(!GC_Table[i][chromo].empty()) // check to see that a vector exists at each index of row for this column
+        if(!GC_Table[i][chromo - 1].empty()) // check to see that a vector exists at each index of row for this column
         {
             for (int j=0; j<10;j++)// loop through each index in the vector at this row comlumn position
             {
 
-                if (GC_Table[i][chromo][j]!= NULL)  //if there is a value inside of the rsid_Table (vector) at each index print out that value and loop through
+                if (GC_Table[i][chromo - 1][j]!= NULL)  //if there is a value inside of the rsid_Table (vector) at each index print out that value and loop through
                 {
-                    RSID *temp = GC_Table[i][chromo][j];
+                    RSID *temp = GC_Table[i][chromo - 1][j];
 
                     while (temp != NULL) // the linked list until there are no more values.
                     {

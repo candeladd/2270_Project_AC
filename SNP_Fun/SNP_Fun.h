@@ -38,8 +38,6 @@ class SNP_Fun
     protected:
     private:
         std::vector<RSID*> GC_Table [GENE][CHROM]= {};
-        //std::vector<RSID*> GCC_Table [GENE][CHROM]= {};
-
 };
 
 #endif // SNP_FUN_H
