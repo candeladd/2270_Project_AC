@@ -16,11 +16,11 @@ int main()
     while (userinput != "6")// main menu loop
     {
         cout	<<	"======Main Menu====="	<<	endl;
-        cout	<<	"1. Enter your SNP file name"	<<	endl;
-        cout	<<	"2. find an rsid"	<<	endl;
-        cout	<<  "3. print rsid with matching genotype"	<<	endl;
-        cout    <<  "4. find an rsid in User" << endl;
-        cout    <<  "5. print all rsids for a chromosome" << endl;
+        cout	<<	"1. Create User Database"	<<	endl;
+        cout	<<	"2. Search known SNP Database"	<<	endl;
+        cout    <<  "3. Get all known User effects" << endl;
+        cout	<<  "4. Print all SNPs matching genotype"	<<	endl;
+        cout    <<  "5. Print all SNPs matching chromosome" << endl;
         cout    <<  "6. Quit" << endl;
 
 
@@ -59,7 +59,7 @@ int main()
                 Initial->retrieveRSID(RSID_str, stoi(chromo), geno);
             }
         }
-        else if (userinput == "3")
+        else if (userinput == "4")
         {
             string geno;
 
@@ -69,22 +69,12 @@ int main()
 
             User->printMatchingGeno(geno);
         }
-        else if (userinput=="4")
+        else if (userinput == "3")
         {
-            string RSID_str;
-            string chromo;
-            string geno;
-
-            cout << "Enter your SNP: ";
-            getline(cin, RSID_str);
-
-            cout << "Enter your chromosome: ";
-            getline(cin, chromo);
-
-            cout << "Enter your genotype: ";
-            getline(cin, geno);
-            cout << '\n';
-            User->retrieveRSID(RSID_str, stoi(chromo), geno);
+            string infile;
+            cout	<<	"Enter your SNP file name"	<<	endl;
+            getline(cin, infile);
+            Initial->compareData(infile);
         }
         else if(userinput == "5")
         {

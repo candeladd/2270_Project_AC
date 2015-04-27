@@ -33,10 +33,12 @@ class SNP_Fun
         void printMatchingGeno(std::string geno);
         void retrieveRSID(std::string RSID_str, int chromo, std::string geno);
         void printAllForChromosome(int chromo);
+        void compareData(std::string filename);
+        void retrieveData(std::string RSID_str, int chromo, int genoInt);
     protected:
     private:
         std::vector<RSID*> GC_Table [GENE][CHROM]= {};
-        std::vector<RSID*> GCC_Table [GENE][CHROM]= {};
+        //std::vector<RSID*> GCC_Table [GENE][CHROM]= {};
 
 };
 
