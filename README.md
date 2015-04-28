@@ -38,3 +38,5 @@ OPEN ISSUES/BUGS:
 -Instead of cout-ing RSIDs when using option #4 or #5 (i.e. printAllForChromosome or printMatchingGeno) it would be better to write out the info to a file.
 
 -Also writing out to a file the info given to users, while keeping the cout-ing aspect, option #3 (i.e. retrieveData) would be nice.
+
+-A makefile for easy execution would be cool!
