@@ -47,3 +47,5 @@ OPEN ISSUES/BUGS:
 -Any additional error checking.
 
 -A makefile for easy execution would be cool!
+
+-Any other functionality that might be awesome...
