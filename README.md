@@ -9,8 +9,7 @@ HOW TO RUN:
 
 1) Clone the project file
 
-Optional: Download raw data files (.txt) from https://opensnp.org/user_index 
-          into the project file for extra fun or just use our test.txt file.
+Optional: Download raw data files (.txt) from https://opensnp.org/user_index (it tells you whether users have SNPs available) into the project file for extra fun or just use our test.txt file.
 
 2) Open project file in Code::Blocks IDE (SNP_Fun.cbp)
 
