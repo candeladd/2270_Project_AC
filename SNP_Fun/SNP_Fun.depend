@@ -20,11 +20,11 @@
 	<sstream>
 	"SNP_Fun.h"
 
-1430164532 /home/user/Dropbox/2270/Project/2270_Project_AC/SNP_Fun/SNP_Fun.h
+1430240271 /home/user/Dropbox/2270/Project/2270_Project_AC/SNP_Fun/SNP_Fun.h
 	<vector>
 	<iostream>
 
-1430163031 source:/home/user/Dropbox/2270/Project/2270_Project_AC/SNP_Fun/main.cpp
+1430240271 source:/home/user/Dropbox/2270/Project/2270_Project_AC/SNP_Fun/main.cpp
 	<iostream>
 	"SNP_Fun.h"
 	<fstream>

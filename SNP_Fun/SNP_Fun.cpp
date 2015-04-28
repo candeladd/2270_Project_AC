@@ -774,9 +774,28 @@ A rsid object has been created, assigned relevant info, and returned for use in 
         return rsID; //Returns the new obj
 
  }
+ /*
+Function Prototype:
+void retrieveRSID(std::string RSID_str, int chromo, std::string geno);
 
-/*retrieveRSID - Given user inputted information, this function checks the default database
-* by genotype, chromosome, and rsid hash table position for an rsid obj and info to return to the user.*/
+Function Description:
+
+retrieveRSID - Given user inputted information, this function checks the default database
+ by genotype, chromosome, and rsid hash table position for an rsid obj and info to return to the user.
+
+
+Example:
+outside of class-   SNP_Fun *Initial;
+                    Initial->retrieveRSID(RSID_str, stoi(chromo), geno);
+
+Pre-Condition:
+The program user has a particular snp that they are interested in finding information about.  They know the rsid, the chromosome, and the genotype.  They will
+select option 2 on the menu and enter the rsid, the chromosome, and the genotype
+
+Post-Condition:
+a print out of the rsid, chromosome, genotype, and effect of that particular genotype will appear in the console window.
+
+*/
  void SNP_Fun::retrieveRSID(std::string RSID_str, int chromo, std::string geno)
  {
      int genoInt = getGenoInt(geno); //Gets the integer value of the genotype string
@@ -837,8 +856,25 @@ A rsid object has been created, assigned relevant info, and returned for use in 
 
  }
 
-/*retrieveRSID - Given user inputted file from compareData function, this function checks the default database
-* by genotype, chromosome, and rsid hash table position for alll file input and returns info to the user.*/
+/*
+Function Prototype:
+void retrieveData(std::string RSID_str, int chromo, int genoInt);
+
+Function Description:
+- Given user inputted file it compares the users SNPs to the default database created in the Initial object.  it then
+finds any RSID, gene, chromosome pairs with an effect and prints out the effect that the users data contains.
+
+Example:
+inside of class - retrieveData(rsId, Chromosome_in, genoInt);
+
+Pre-Condition:
+The program user has a SNP file and they want to know what information can be determined about their particular genetic information.  They send file name into this function.
+the information is then analyzed.
+
+Post-Condition:
+a print out of all known effects that can be determined from their data is printed out to the console window.
+
+*/
  void SNP_Fun::retrieveData(std::string RSID_str, int chromo, int genoInt)
  {
      int idInt = hashRSID(RSID_str, 10); //Gets the hashed value of the RSID string
@@ -892,8 +928,25 @@ A rsid object has been created, assigned relevant info, and returned for use in 
      }
 
  }
+/*
+Function Prototype:
+void printMatchingGeno(std::string geno);
 
-//finds all rsid associated with a particular genotype in a users DNA
+Function Description:
+- Once a user database is created, this function will take in a genotype from the user and print out all RSIDs and the chromosome they are indexed to for that
+particular genotype.
+
+Example:
+outside of class -  SNP_Fun *User;
+                    User->printAllForChromosome(chromo);
+
+Pre-Condition:
+The user has entered their file and created a 3d matrix holding their particular information.  They want to know all to the chromosomes and RSID associated
+with a particular genotype.
+
+Post-Condition:
+every RSID and the chromosome where it is located are printed to the console window.
+*/
 void SNP_Fun::printMatchingGeno(std::string geno)
 {
     int genoInt = getGenoInt(geno); //hash the genotype sent into the function
@@ -927,8 +980,24 @@ void SNP_Fun::printMatchingGeno(std::string geno)
         }
     }
 }
+/*
+Function Prototype:
+void printAllForChromosome(int chromo);
 
-/* printAllForChromosome- finds all SNPs associated with a particular chromosome given by the user.  Then prints them all out*/
+Function Description:
+- Once a user database is created, this function will take in a chromosome from the user and print out all RSIDs and the genotype at that particular
+chromosome.
+
+Example:
+outside of class -  SNP_Fun *User;
+                    User->printAllForChromosome(int chromo);
+Pre-Condition:
+The user has entered their file and created a 3d matrix holding their particular information.  They want to know all to the genotypes and RSIDs found at
+that chromosome.
+
+Post-Condition:
+every RSID and the genotype at that chromosome printed to the console window.
+*/
 void SNP_Fun::printAllForChromosome(int chromo)
 {
 
