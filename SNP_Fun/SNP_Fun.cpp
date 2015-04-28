@@ -10,10 +10,32 @@ SNP_Fun::SNP_Fun()
 
 SNP_Fun::~SNP_Fun()
 {
+    //dtor
 }
 
-/*hashRSID - A hash function for returning the
-* hash key of an entered SNP rsid*/
+/*
+Function Prototype:
+int hashRSID(std::string, int);
+
+Function Description:
+hashRSID - A hash function for returning the
+hash key of an entered SNP rsid.
+
+Example:
+Outside of class - SNP_Fun *Initial;
+                   Initial->hashRSID("rs564798", 10);
+
+Within class - hashRSID("rs564798", 10);
+
+Pre-Condition:
+The input rsid is a string, then converted via hash function, and is
+then stored into the int sum as the hash key.
+
+Post-Condition:
+Rsid has now been converted, via the hash function, and stored into
+sum which has been returned for use in positioning rsid obj in
+vector hash tables that have been stored in the 2D array.*/
+
 int SNP_Fun::hashRSID(std::string id, int hashSize)
 {
     int sum = 0;
@@ -28,8 +50,28 @@ int SNP_Fun::hashRSID(std::string id, int hashSize)
     return sum;
 }
 
-/*getGenoInt - Returns a key, via a switch statement,
-* for the inputed genotype*/
+/*
+Function Prototype:
+int getGenoInt(std::string);
+
+Function Description:
+getGenoInt - Returns a key, via a switch statement,
+for the inputed genotype
+
+Example:
+Outside of class - SNP_Fun *Initial;
+                   Initial->getGenoInt("AA");
+
+Inside class - getGenoInt("AA");
+
+Pre-Condition:
+Takes in a genotype string, two characters, and returns a value 0 - 12
+depending on its ASCII value.
+
+Post-Condition:
+Returned value 0 -12, depending on the genotype ASCII value, for use
+in determining a RSID obj position in the genotype/chromosome 2D array.
+*/
 int SNP_Fun::getGenoInt(std::string geno)
 {
     int genoInt = geno[0] + geno[1]; //Get the value of the two geno chars
@@ -68,8 +110,30 @@ int SNP_Fun::getGenoInt(std::string geno)
     }
 }
 
-/*default_add_rsid - A function for creating the initial/default database
-* of SNP's and info for comparison or general use.*/
+/*
+Function Prototype:
+void default_add_rsid(RSID*, std::string)
+
+Function Description:
+default_add_rsid - A function for creating the initial/default database
+of SNP's and info for comparison of user data or general use.
+
+Example:
+Outside of class - SNP_Fun *Initial;
+                   Initial->default_add_rsid(temp, "Implies a higher risk of cancer");
+
+Inside class - default_add_rsid(temp, "Implies a higher risk of cancer");
+
+Pre-Condition:
+Default database chromosome/genotype positions are empty or have a pre-existing vector
+hash table. Vector hash table is created in appropriate position if one doesn't
+exist. Appropriate hash table position is filled with an rsid pointer obj. The string
+effect is the effect the specific rsid gene mutation means for a person.
+
+Post-Condition:
+There is now a vector hash table in position genotype/chromosome that has a position
+filled with a rsid pointer obj that has been determined by the hashRSID function.
+*/
 void SNP_Fun::default_add_rsid(RSID* rsid_obj, std::string effect)
 {
     int genoInt = getGenoInt(rsid_obj->genotype); //Gets the integer value of the genotype string
@@ -85,8 +149,6 @@ void SNP_Fun::default_add_rsid(RSID* rsid_obj, std::string effect)
     }
     else
     {
-        //std::cout << genoInt << ":" << rsid_obj->chromosome - 1 << ":" << idInt << '\n';
-
         if(GC_Table[genoInt][rsid_obj->chromosome - 1][idInt] == NULL) //If there is no collision add the rsid object
         {
             GC_Table[genoInt][rsid_obj->chromosome - 1][idInt] = rsid_obj;
@@ -129,8 +191,29 @@ void SNP_Fun::default_add_rsid(RSID* rsid_obj, std::string effect)
     }
 }
 
-/*user_add_rsid - User based database creation function that adds rsid
-* objs that have been created from an inputted txt file.*/
+/*
+Function Prototype:
+void user_add_rsid(RSID*);
+
+Function Description:
+user_add_rsid - User database creation function that adds rsid
+objs that have been sorted and created from an user inputted .txt file.
+
+Example:
+Outside of class - SNP_Fun *User;
+                   User->user_add_rsid(temp);
+
+Inside class - user_add_rsid(temp);
+
+Pre-Condition:
+User database Chromosome/genotype positions are empty or have a pre-existing vector
+hash table. Vector hash table is created in appropriate position if one doesn't
+exist. Appropriate hash table position is filled with an rsid pointer obj.
+
+Post-Condition:
+There is now a vector hash table in the genotype/chromosome position that has a position
+filled with a rsid pointer obj that has been determined by the hashRSID function.
+*/
 void SNP_Fun::user_add_rsid(RSID* rsid_obj)
 {
     int   genoInt = getGenoInt(rsid_obj->genotype); //Gets the integer value of the genotype string
@@ -195,8 +278,30 @@ void SNP_Fun::user_add_rsid(RSID* rsid_obj)
     }
 }
 
-/*initial_data - Where all of the default/initial rsid objs are
-* created and stored into the default database - 31 SNPs -  */
+/*
+Function Prototype:
+void initial_data();
+
+Function Description:
+initial_data - Where all of the default/initial rsid objs are
+created and stored into the default database - 31 SNPs - 85 Gene Mutations
+
+Example:
+Outside of class - SNP_Fun *Initial;
+                   Initial->initial_data();
+
+Inside class - initial_data();
+
+Precondition:
+Data is in it's "raw" or unhashed condition and then passed to the sort_Data function
+to create a rsid obj of it. This object is then taken and passed to default_add_rsid
+along with its mutation effect and is stored to the default database.
+
+Post-Condition:
+The default database is now full of new rsid objects that have been assigned their
+relevant information and place in their relevant positions in the hash table. This
+is where their stored for use in comparison of user data or general use.
+*/
 void SNP_Fun::initial_data()
 {
     RSID *temp = sort_Data("rs53576", 3, 8762685, "AA");
@@ -455,12 +560,33 @@ void SNP_Fun::initial_data()
     default_add_rsid(temp, "0.26x lower risk for certain autoimmune diseases");
 }
 
-/*createMatrix reads in from a file provided by the user.  Parses file based on tab spacing.  Finds matching genotypes.
-Puts all RSID objects into a 3d matrix.
+/*
+Function Prototype:
+void createMatrix(std::string);
+
+Function Description:
+createMatrix reads in from a file provided by the user. Parses file based on tab
+spacing. Finds matching genotypes. Puts all RSID objects into a 3d matrix.
+
+Example:
+Outside of class - SNP_Fun *User;
+                   User->createMatrix("test.txt");
+
+Inside class - createMatrix("test.txt");
+
+Pre-Condition:
+Unused locations in User 3D matrix hashtable are "empty". User file is unparsed.
+The input string is the filename to use. The file information is parsed per
+rsid and stored with relevant info into rsid objs. Which are then stored into
+3D matrix hash table for later use or analysis.
+
+Post-Condition:
+User file has been parsed an stored into relevant genotype/chromosome positions
+inside of their relevant hashed position into the rsid vector hashtable. The
+user database has been created.
 */
 void SNP_Fun::createMatrix(std::string filename)
 {
-    std::cout << "Processing File" << '\n';
 
     std::string token;
     std::ifstream infile;
@@ -469,55 +595,88 @@ void SNP_Fun::createMatrix(std::string filename)
     std::string line;
     int Chromosome_in = 0;
     int position_in = 0;
+    int counter = 0;
 
     infile.open(filename.c_str());
 
-    int counter = 0;
-    int column = 0;
-
-    while(getline(infile, line))// reads in the file one line at a time and stores the line in a string called line
+    if(!infile.is_open())
     {
-        std::stringstream ss; // creates a string stream
+        std::cout << "Enter a valid filename" << '\n';
+    }
 
-        if(line[0] != '#')// checks to see that the first charecter in the line is not a #
+    else
+    {
+        std::cout << "Processing File" << '\n';
+        while(getline(infile, line))// reads in the file one line at a time and stores the line in a string called line
         {
-            ss << line; // sends data in line to the string stream ss
+            std::stringstream ss; // creates a string stream
+            counter++;
 
-            std::string rsId;
-            std::string Chrom;
-
-
-            getline(ss, rsId, '\t'); // grabs all chars before the first tab sends them to rsId
-            getline(ss, Chrom, '\t');//grabs all chars after first tab & before third and sends it to Chrom
-
-            if(Chrom != "X" && Chrom != "Y" && Chrom != "MT") // checks to make sure the Chromosome is not X, Y, or mitochondria
+            if(line[0] != '#')// checks to see that the first charecter in the line is not a #
             {
-                //std::cout << Chrom << '\n';
+                ss << line; // sends data in line to the string stream ss
 
-                getline(ss, pos, '\t');//store the position of the rsid
-                getline(ss, genotype_in);// stores the genotype
+                std::string rsId;
+                std::string Chrom;
 
-                Chromosome_in = std::stoi(Chrom); // turns the chromosome string into an int
-                position_in = std::stoi(pos);   // turns the positon string into an int
 
-                RSID *temp = sort_Data(rsId, Chromosome_in, position_in, genotype_in); // creates an instance of the struct rsid and add all user info to it
-                user_add_rsid(temp); // places the new rsid instance into a 3d matrix
+                getline(ss, rsId, '\t'); // grabs all chars before the first tab sends them to rsId
+                getline(ss, Chrom, '\t');//grabs all chars after first tab & before third and sends it to Chrom
 
+                if(Chrom != "X" && Chrom != "Y" && Chrom != "MT") // checks to make sure the Chromosome is not X, Y, or mitochondria
+                {
+                    getline(ss, pos, '\t');//store the position of the rsid
+                    getline(ss, genotype_in);// stores the genotype
+
+                    Chromosome_in = std::stoi(Chrom); // turns the chromosome string into an int
+                    position_in = std::stoi(pos);   // turns the positon string into an int
+
+                    RSID *temp = sort_Data(rsId, Chromosome_in, position_in, genotype_in); // creates an instance of the struct rsid and add all user info to it
+                    user_add_rsid(temp); // places the new rsid instance into a 3d matrix
+
+                }
             }
-        }
 
+            if(counter%100000 == 0)
+            {
+                std::cout << "..." << '\n';
+            }
+
+        }
     }
 
     infile.close();
 
 }
 
-/*compareData reads in from a file provided by the user.  Parses file based on tab spacing.  Finds matching genotypes.
-Then sends parsed data to retrieveData for comparison against the default database.*/
+/*
+Function Prototype:
+void compareData(std::string);
+
+Function Description:
+compareData reads in from a file provided by the user. Parses file based on tab
+spacing. Finds matching genotypes. Then sends parsed data to retrieveData for
+comparison against the default database.
+
+Example:
+Outside of class - SNP_Fun *Initial;
+                   Initial->compareData("test.txt");
+
+Inside class - compareData("test.txt");
+
+Pre-Condition:
+Defalut database is full of rsid objs ready for comparison and use. User file is unparsed.
+The input string is the filename to use. The file information is parsed per
+rsid and each is compare against the default database by calling retrieveData.
+Found matches are then outputted to console with relevant information displayed.
+
+Post-Condition:
+User file has been parsed and compared against the default database using the
+retrieveData function. Matches have been outputted to console with relevant info
+The state of the databases are the same.
+*/
 void SNP_Fun::compareData(std::string filename)
 {
-    std::cout << "Processing File" << '\n';
-
     std::string token;
     std::ifstream infile;
     std::string pos;
@@ -531,42 +690,51 @@ void SNP_Fun::compareData(std::string filename)
     int counter = 0;
     int column = 0;
 
-    while(getline(infile, line))// reads in the file one line at a time and stores the line in a string called line
+    if(!infile.is_open())
     {
-        std::stringstream ss; // creates a string stream
+        std::cout << "Enter a valid filename" << '\n';
+    }
 
-        if(line[0] != '#')// checks to see that the first charecter in the line is not a #
+    else
+    {
+        std::cout << "Processing File" << '\n';
+        while(getline(infile, line))// reads in the file one line at a time and stores the line in a string called line
         {
-            ss << line; // sends data in line to the string stream ss
+            std::stringstream ss; // creates a string stream
 
-            std::string rsId;
-            std::string Chrom;
-
-
-            getline(ss, rsId, '\t'); // grabs all chars before the first tab sends them to rsId
-            getline(ss, Chrom, '\t');//grabs all chars after first tab & before third and sends it to Chrom
-
-            if(Chrom != "X" && Chrom != "Y" && Chrom != "MT") // checks to make sure the Chromosome is not X, Y, or mitochondria
+            if(line[0] != '#')// checks to see that the first charecter in the line is not a #
             {
+                ss << line; // sends data in line to the string stream ss
 
-                getline(ss, pos, '\t');//store the position of the rsid
-                getline(ss, genotype_in);// stores the genotype
-
-                Chromosome_in = std::stoi(Chrom); // turns the chromosome string into an int
-                position_in = std::stoi(pos);   // turns the positon string into an int
+                std::string rsId;
+                std::string Chrom;
 
 
+                getline(ss, rsId, '\t'); // grabs all chars before the first tab sends them to rsId
+                getline(ss, Chrom, '\t');//grabs all chars after first tab & before third and sends it to Chrom
 
-                int genoInt = getGenoInt(genotype_in); //find the genotype int for the current RSID being added to the matrix
-
-                if (genoInt != 11 && genoInt != 12 && genoInt != 10) // makes sure that genotype is not II,DI,or --
+                if(Chrom != "X" && Chrom != "Y" && Chrom != "MT") // checks to make sure the Chromosome is not X, Y, or mitochondria
                 {
-                    retrieveData(rsId, Chromosome_in, genoInt); // sends parsed data to retrieveData
+
+                    getline(ss, pos, '\t');//store the position of the rsid
+                    getline(ss, genotype_in);// stores the genotype
+
+                    Chromosome_in = std::stoi(Chrom); // turns the chromosome string into an int
+                    position_in = std::stoi(pos);   // turns the positon string into an int
+
+
+
+                    int genoInt = getGenoInt(genotype_in); //find the genotype int for the current RSID being added to the matrix
+
+                    if (genoInt != 11 && genoInt != 12 && genoInt != 10) // makes sure that genotype is not II,DI,or --
+                    {
+                        retrieveData(rsId, Chromosome_in, genoInt); // sends parsed data to retrieveData
+                    }
+
                 }
-
             }
-        }
 
+        }
     }
 
     infile.close();
@@ -575,7 +743,26 @@ void SNP_Fun::compareData(std::string filename)
 
 
 
-/*sort_Data - Creates rsid objs for easy use in other functions*/
+/*
+Function Prototype:
+RSID* sort_Data(std::string, int, int, std::string)
+
+Function Description:
+sort_Data - Creates rsid objs for easy use in other functions
+
+Example:
+Outside of class - SNP_Fun *Initial;
+                   Initial->sort_Data("rs673546", 12, 76927632, "AA");
+
+Inside class - sort_Data("rs673546", 12, 76927632, "AA");
+
+Pre-Condition:
+There doesn't exist a rsid obj. The data is taken either from entry or parsed info.
+A rsid obj is created, assigned relevant info, and returned for use in other functions.
+
+Post-Condition:
+A rsid object has been created, assigned relevant info, and returned for use in other functions.
+*/
  RSID* SNP_Fun::sort_Data(std::string rsid_str, int chromosome1, int position1, std::string genotype1)
  {
         RSID *rsID = new RSID;// creates a new instance of the struct

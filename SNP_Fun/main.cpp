@@ -10,6 +10,7 @@ int main()
     Initial->initial_data(); //Creates the "default" database
 
     string userinput; //For user input
+    bool user_created = false; //Flag for user database creation
 
     SNP_Fun *User= new SNP_Fun(); //Create an instance for a "user" database
 
@@ -26,14 +27,18 @@ int main()
 
         getline(cin, userinput);
 
-        if (userinput == "1")
+        if (userinput == "1" && !user_created)
         {
             string infile;
             cout	<<	"Enter your SNP file name"	<<	endl;
             getline(cin, infile);
             User->createMatrix(infile);
+            user_created = true;
         }
-
+        else if (userinput == "1" && user_created)
+        {
+            cout << "User database already exists" << '\n';
+        }
         else if(userinput == "2")
         {
             string RSID_str;
@@ -59,7 +64,14 @@ int main()
                 Initial->retrieveRSID(RSID_str, stoi(chromo), geno);
             }
         }
-        else if (userinput == "4")
+        else if (userinput == "3")
+        {
+            string infile;
+            cout	<<	"Enter your SNP file name"	<<	endl;
+            getline(cin, infile);
+            Initial->compareData(infile);
+        }
+        else if (userinput == "4" && user_created)
         {
             string geno;
 
@@ -69,14 +81,11 @@ int main()
 
             User->printMatchingGeno(geno);
         }
-        else if (userinput == "3")
+        else if(userinput == "4" && !user_created)
         {
-            string infile;
-            cout	<<	"Enter your SNP file name"	<<	endl;
-            getline(cin, infile);
-            Initial->compareData(infile);
+            cout << "Please create user database first" << '\n';
         }
-        else if(userinput == "5")
+        else if(userinput == "5" && user_created)
         {
             string chromo1;
             cout << "Enter your chromosome: ";
@@ -85,6 +94,10 @@ int main()
 
             User->printAllForChromosome(chromo);
 
+        }
+        else if(userinput == "5" && !user_created)
+        {
+            cout << "Please create user database first" << '\n';
         }
 
     }
