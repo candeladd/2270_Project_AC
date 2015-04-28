@@ -9,11 +9,15 @@ HOW TO RUN:
 
 1) Clone the project file
 
+Optional: Download raw data files (.txt) from https://opensnp.org/user_index 
+          into the project file for extra fun or just use our test.txt file.
+
 2) Open project file in Code::Blocks IDE (SNP_Fun.cbp)
 
 3) Recompile (The Gear)
 
 4) Run (The Green Arrow)
+
 
 DEPENDENCIES:
 
@@ -38,5 +42,9 @@ OPEN ISSUES/BUGS:
 -Instead of cout-ing RSIDs when using option #4 or #5 (i.e. printAllForChromosome or printMatchingGeno) it would be better to write out the info to a file.
 
 -Also writing out to a file the info given to users, while keeping the cout-ing aspect, option #3 (i.e. retrieveData) would be nice.
+
+-An option, and actual way of doing it, under option #1 that lets user decided to overwrite the user database with a new user .txt file if desired.
+
+-Any additional error checking.
 
 -A makefile for easy execution would be cool!
