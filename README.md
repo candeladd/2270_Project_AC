@@ -22,7 +22,7 @@ DEPENDENCIES:
 
 The program depends on being compiled using C++11 or higher a standard with no 3rd party or special libraries.
 
-The program also requires that the user enters a file name in the console window when prompted.  The file name should be formatted as follows filename.txt where file name would not actually be filename but the name of the file you want to run.  We have included 2 sample files named test.txt.  Users are also able to download files from opensnp.org and save them in the 2270_Project_AC directory with the .txt extension.  Then analyze these files using our program. 
+The program also requires that the user enters a file name in the console window when prompted.  The file name should be formatted as follows filename.txt where file name would not actually be filename but the name of the file you want to run.  We have included a sample file named test.txt.  Users are also able to download files from opensnp.org and save them in the 2270_Project_AC directory with the .txt extension.  Then analyze these files using our program. 
 
 SYSTEM REQUIREMENTS:
 
