@@ -1,6 +1,7 @@
 #include <iostream>
 #include "SNP_Fun.h"
 #include <fstream>
+#include <cctype>
 using namespace std;
 
 int main()
@@ -59,6 +60,11 @@ int main()
             {
                 cout << "Please enter a valid SNP, chromosome, and genotype combination" << '\n';
             }
+            //checks to see if values for chromo are not numbers and if values for geno are numbers, and outputs error
+            else if(isdigit(chromo[0]) == false || isdigit(chromo[1]) == false || isdigit(geno[0]) == true || isdigit(geno[1]) == true)
+            {
+                cout << "Value entered is an invalid chromosome/genotype value. Please enter valid value" << endl;
+            }
             else
             {
                 Initial->retrieveRSID(RSID_str, stoi(chromo), geno);
@@ -79,7 +85,13 @@ int main()
             getline(cin, geno);
             cout << '\n';
 
-            User->printMatchingGeno(geno);
+            //Checks to see if geno is a number
+            if(isdigit(geno[0]) == true || isdigit(geno[1]) == true)
+            {
+                cout << "Not a valid genotype." << endl;
+            }
+            else
+                User->printMatchingGeno(geno);
         }
         else if(userinput == "4" && !user_created)
         {
@@ -90,9 +102,17 @@ int main()
             string chromo1;
             cout << "Enter your chromosome: ";
             getline(cin, chromo1);
-            int chromo = stoi(chromo1);
 
-            User->printAllForChromosome(chromo);
+            //Checks if chromo1 is a digit
+            if(isdigit(chromo1[0]) == false || isdigit(chromo1[1]) == false)
+            {
+                cout << "Not a valid chromosome." << endl;
+            }
+            else
+            {
+                int chromo = stoi(chromo1);
+                User->printAllForChromosome(chromo);
+            }
 
         }
         else if(userinput == "5" && !user_created)
