@@ -38,7 +38,7 @@ Andrew Candelaresi, Austin Holler
 
 OPEN AND KNOWN ISSUES/BUGS:
 
--If user inputs unexpected input (e.g. string when it expects an int or vise-versa, entering a chromosome that doesn't exist, etc.) the program doesn't like it.
+-(Update: Closed) If user inputs unexpected input (e.g. string when it expects an int or vise-versa, entering a chromosome that doesn't exist, etc.) the program doesn't like it.
 
 -Instead of cout-ing RSIDs when using option #4 or #5 (i.e. printAllForChromosome or printMatchingGeno) it would be better to write out the info to a file.
 
