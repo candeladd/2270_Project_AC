@@ -38,16 +38,16 @@ Andrew Candelaresi, Austin Holler
 
 OPEN AND KNOWN ISSUES/BUGS:
 
--(Update: Closed) If user inputs unexpected input (e.g. string when it expects an int or vise-versa, entering a chromosome that doesn't exist, etc.) the program doesn't like it.
+- (Update: CLOSED) If user inputs unexpected input (e.g. string when it expects an int or vise-versa, entering a chromosome that doesn't exist, etc.) the program doesn't like it.
 
--Instead of cout-ing RSIDs when using option #4 or #5 (i.e. printAllForChromosome or printMatchingGeno) it would be better to write out the info to a file.
+- Instead of cout-ing RSIDs when using option #4 or #5 (i.e. printAllForChromosome or printMatchingGeno) it would be better to write out the info to a file.
 
--Also writing out to a file the info given to users, while keeping the cout-ing aspect, option #3 (i.e. retrieveData) would be nice.
+- Also writing out to a file the info given to users, while keeping the cout-ing aspect, option #3 (i.e. retrieveData) would be nice.
 
--An option, and actual way of doing it, under option #1 that lets user decided to overwrite the user database with a new user .txt file if desired.
+- An option, and actual way of doing it, under option #1 that lets user decided to overwrite the user database with a new user .txt file if desired.
 
--Any additional error checking.
+- Any additional error checking.
 
--A makefile for easy execution would be cool!
+- A makefile for easy execution would be cool!
 
--Any other functionality that might be awesome...
+- Any other functionality that might be awesome...
