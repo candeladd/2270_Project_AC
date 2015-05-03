@@ -805,6 +805,7 @@ a print out of the rsid, chromosome, genotype, and effect of that particular gen
      if(GC_Table[genoInt][chromo - 1].empty())
      {
          std::cout << "RSID does not exist within database" << '\n';
+
          return;
      }
 
@@ -901,6 +902,12 @@ a print out of all known effects that can be determined from their data is print
             std::cout << "Position: " << GC_Table[genoInt][chromo - 1][idInt]->position << '\n';
             std::cout << "Genotype: " << GC_Table[genoInt][chromo - 1][idInt]->genotype << '\n';
             std::cout << "Effect: " << GC_Table[genoInt][chromo - 1][idInt]->info << '\n' << '\n';
+            //outputs to file
+            outputFile<< "RSID: " << GC_Table[genoInt][chromo - 1][idInt]->id << '\n';
+            outputFile<< "Chromosome: " << GC_Table[genoInt][chromo - 1][idInt]->chromosome << '\n';
+            outputFile<< "Position: " << GC_Table[genoInt][chromo - 1][idInt]->position << '\n';
+            outputFile<< "Genotype: " << GC_Table[genoInt][chromo - 1][idInt]->genotype << '\n';
+            outputFile<< "Effect: " << GC_Table[genoInt][chromo - 1][idInt]->info << '\n' << '\n';
             return;
         }
         //Else if the hash table rsid isn't a match, check the linked list
@@ -921,6 +928,12 @@ a print out of all known effects that can be determined from their data is print
                     std::cout << "Postition: " << temp->position << '\n';
                     std::cout << "Genotype: " << temp->genotype << '\n';
                     std::cout << "Effect: " << temp->info << '\n' << '\n';
+                    //outputs to file
+                    outputFile<< "RSID: " << temp->id << '\n';
+                    outputFile<< "Chromosome: " << temp->chromosome << '\n';
+                    outputFile<< "Postition: " << temp->position << '\n';
+                    outputFile<< "Genotype: " << temp->genotype << '\n';
+                    outputFile<< "Effect: " << temp->info << '\n' << '\n';
                     return;
                 }
             }

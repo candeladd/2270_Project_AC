@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 
 struct RSID
@@ -23,6 +24,7 @@ class SNP_Fun
     public:
         SNP_Fun();
         ~SNP_Fun();
+        std::ofstream outputFile;
         void createMatrix(std::string filename);
         RSID* sort_Data(std::string RSID_str, int chromosome1, int position1, std::string genotype1);
         int getGenoInt(std::string geno);

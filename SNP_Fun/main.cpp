@@ -15,6 +15,8 @@ int main()
 
     SNP_Fun *User= new SNP_Fun(); //Create an instance for a "user" database
 
+    Initial->outputFile.open("Output.txt"); //Opens output file
+
     while (userinput != "6")// main menu loop
     {
         cout	<<	"======Main Menu====="	<<	endl;
@@ -119,12 +121,10 @@ int main()
         {
             cout << "Please create user database first" << '\n';
         }
-
     }
-
+    Initial->outputFile.close();
     Initial->~SNP_Fun();
     User->~SNP_Fun();
-
     cout << "Goodbye!"<<endl;
 
     return 0;
