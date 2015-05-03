@@ -104,7 +104,7 @@ int main()
             getline(cin, chromo1);
 
             //Checks if chromo1 is a digit
-            if(isdigit(chromo1[0]) == false || isdigit(chromo1[1]) == false)
+            if(isdigit(chromo1[0]) == false)
             {
                 cout << "Not a valid chromosome." << endl;
             }
