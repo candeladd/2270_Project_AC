@@ -137,6 +137,10 @@ filled with a rsid pointer obj that has been determined by the hashRSID function
 void SNP_Fun::default_add_rsid(RSID* rsid_obj, std::string effect)
 {
     int genoInt = getGenoInt(rsid_obj->genotype); //Gets the integer value of the genotype string
+    if(genoInt < 0 || genoInt > 9)
+    {
+        return;
+    }
     int idInt = hashRSID(rsid_obj->id, 10); //Gets the hashed value of the RSID string
     rsid_obj->info = effect; //Sets the effect of the rsid
 
@@ -216,9 +220,9 @@ filled with a rsid pointer obj that has been determined by the hashRSID function
 */
 void SNP_Fun::user_add_rsid(RSID* rsid_obj)
 {
-    int   genoInt = getGenoInt(rsid_obj->genotype); //Gets the integer value of the genotype string
+    int genoInt = getGenoInt(rsid_obj->genotype); //Gets the integer value of the genotype string
 
-    if (genoInt==10||genoInt==11 ||genoInt==12)// ignores rsid with genotype "--" "II" and "DI"
+    if (genoInt < 0 || genoInt > 9)// ignores rsid with genotype "--" "II" and "DI"
     {
         return;
     }
@@ -798,19 +802,24 @@ a print out of the rsid, chromosome, genotype, and effect of that particular gen
 */
  void SNP_Fun::retrieveRSID(std::string RSID_str, int chromo, std::string geno)
  {
-     int genoInt = getGenoInt(geno); //Gets the integer value of the genotype string
-     int idInt = hashRSID(RSID_str, 10); //Gets the hashed value of the RSID string
+    int genoInt = getGenoInt(geno); //Gets the integer value of the genotype string
+    if(genoInt < 0 || genoInt > 9)
+    {
+        std::cout << "Please enter a valid genotype" << '\n';
+        return;
+    }
+    int idInt = hashRSID(RSID_str, 10); //Gets the hashed value of the RSID string
 
      //If there is nothing at the genotype/chromosome pos, RSID isn't stored
-     if(GC_Table[genoInt][chromo - 1].empty())
-     {
-         std::cout << "RSID does not exist within database" << '\n';
-         return;
-     }
+    if(GC_Table[genoInt][chromo - 1].empty())
+    {
+        std::cout << "RSID does not exist within database" << '\n';
+        return;
+    }
 
      //Else there exists a hash table at the genotype/chromosome pos
-     else
-     {
+    else
+    {
         //If there is nothing at the hash table key, RSID isn't stored
         if(GC_Table[genoInt][chromo - 1][idInt] == NULL)
         {
@@ -950,6 +959,12 @@ every RSID and the chromosome where it is located are printed to the console win
 void SNP_Fun::printMatchingGeno(std::string geno)
 {
     int genoInt = getGenoInt(geno); //hash the genotype sent into the function
+    if(genoInt < 0 || genoInt > 9)
+    {
+        std::cout << "Please enter a valid genotype" << '\n';
+         return;
+    }
+
     for(int i=0; i < CHROM;i++) // loop through all rows for the particular genotype column you are wanting to print out
     {
         if(!GC_Table[genoInt][i].empty()) // check to see that a vector exists at each of these in each row for this column

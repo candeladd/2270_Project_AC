@@ -21,8 +21,8 @@ int main()
         cout	<<	"1. Create User Database"	<<	endl;
         cout	<<	"2. Search known SNP Database"	<<	endl;
         cout    <<  "3. Get all known User effects" << endl;
-        cout	<<  "4. Print all SNPs matching genotype"	<<	endl;
-        cout    <<  "5. Print all SNPs matching chromosome" << endl;
+        cout	<<  "4. Print all User SNPs matching genotype"	<<	endl;
+        cout    <<  "5. Print all User SNPs matching chromosome" << endl;
         cout    <<  "6. Quit" << endl;
 
 
@@ -46,6 +46,9 @@ int main()
             string chromo;
             string geno;
 
+            bool valid = true;
+            int i = 0;
+
             cout << "Enter your SNP: ";
             getline(cin, RSID_str);
 
@@ -59,15 +62,32 @@ int main()
             if(RSID_str == "" || chromo == "" || geno == "")
             {
                 cout << "Please enter a valid SNP, chromosome, and genotype combination" << '\n';
+                valid = false;
             }
-            //checks to see if values for chromo are not numbers and if values for geno are numbers, and outputs error
-            else if(isdigit(chromo[0]) == false || isdigit(chromo[1]) == false || isdigit(geno[0]) == true || isdigit(geno[1]) == true)
+
+            //checks to see if values for chromo are not numbers and outputs error
+            while(i < chromo.length() && valid)
             {
-                cout << "Value entered is an invalid chromosome/genotype value. Please enter valid value" << endl;
+                if(isdigit(chromo[i]) == false)
+                {
+                    cout << "Value entered is an invalid chromosome. Please enter valid value" << endl;
+
+                    valid = false;
+                }
+
+                i++;
             }
-            else
+
+            if(valid)
             {
-                Initial->retrieveRSID(RSID_str, stoi(chromo), geno);
+                if(stoi(chromo) < 24)
+                {
+                    Initial->retrieveRSID(RSID_str, stoi(chromo), geno);
+                }
+                else
+                {
+                    cout << "Invalid chromosome value. Please choose a value from 1 - 23." << '\n';
+                }
             }
         }
         else if (userinput == "3")
@@ -85,13 +105,7 @@ int main()
             getline(cin, geno);
             cout << '\n';
 
-            //Checks to see if geno is a number
-            if(isdigit(geno[0]) == true || isdigit(geno[1]) == true)
-            {
-                cout << "Not a valid genotype." << endl;
-            }
-            else
-                User->printMatchingGeno(geno);
+            User->printMatchingGeno(geno);
         }
         else if(userinput == "4" && !user_created)
         {
@@ -100,18 +114,35 @@ int main()
         else if(userinput == "5" && user_created)
         {
             string chromo1;
+            bool valid = true;
+            int i = 0;
+
             cout << "Enter your chromosome: ";
             getline(cin, chromo1);
 
-            //Checks if chromo1 is a digit
-            if(isdigit(chromo1[0]) == false)
+            while(i < chromo1.length() && valid)
             {
-                cout << "Not a valid chromosome." << endl;
+                if(isdigit(chromo1[i]) == false)
+                {
+                    cout << "Value entered is an invalid chromosome. Please enter valid value" << endl;
+
+                    valid = false;
+                }
+
+                i++;
             }
-            else
+
+            if(valid)
             {
-                int chromo = stoi(chromo1);
-                User->printAllForChromosome(chromo);
+                if(stoi(chromo1) < 24)
+                {
+                    int chromo = stoi(chromo1);
+                    User->printAllForChromosome(chromo);
+                }
+                else
+                {
+                    cout << "Invalid chromosome value. Please choose a value from 1 - 23." << '\n';
+                }
             }
 
         }
